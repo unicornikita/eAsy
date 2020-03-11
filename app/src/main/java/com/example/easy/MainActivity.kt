@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val myDataset = arrayOf("PON", "TOR", "SRE", "ČET", "PET")
-        val predmeti = arrayOf("MATEMATIKA", "MATEMATIKA", "ANGLEŠČINA", "SLOVENŠČINA", "JEBANŠČINA")
+        val predmeti = arrayOf("MATEMATIKA", "MATEMATIKA", "ANGLEŠČINA", "SLOVENŠČINA")
         viewManager = LinearLayoutManager(this)
         viewAdapter = MyAdapter(myDataset)
 
