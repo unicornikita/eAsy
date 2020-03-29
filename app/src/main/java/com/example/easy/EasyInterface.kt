@@ -11,4 +11,6 @@ interface EasyInterface {
     fun setClass(@Body razred: String?): Call<String?>?
     @GET("allClasses")
     fun allClasses(): Call<List<String>>
+    @GET("danes")
+    fun danes(): Call<List<vsebina>>
 }

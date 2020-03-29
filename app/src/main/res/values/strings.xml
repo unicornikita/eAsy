@@ -8,5 +8,7 @@
     <string name="predmet">MATEMATIKA</string>
     <string name="month">JANUAR</string>
     <string name="okay">okay</string>
+    <string name="profesor">T. Ferbežar</string>
     <string name="cancel">cancel</string>
+
 </resources>
