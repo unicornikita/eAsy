@@ -29,12 +29,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+var chosenDay : View? = null
 class MainActivity : AppCompatActivity() {
-
     private lateinit var viewAdapter: MyAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
     var selectedItem = 0
+
     private val seznamUrnik : MutableList<vsebina> = mutableListOf()
     val ure = listOf("7.10", "8.00", "8.50", "9.40", "10.30", "11.20", "12.10", "13.00", "13.50")
     private val scheduleAdapter = ScheduleAdapter(seznamUrnik,ure)
@@ -120,7 +120,21 @@ class MainActivity : AppCompatActivity() {
         viewManager = LinearLayoutManager(this)
         viewAdapter = MyAdapter()
         viewAdapter.SetOnClickListener(View.OnClickListener {
-            view.tag
+            chosenDay?.alpha = 0.5f
+            it.alpha = 1f
+            chosenDay = it
+            service.izbranDan(izbranRazred ?: "", it.tag as Int).enqueue(object: Callback<List<vsebina>>{
+                override fun onFailure(call: Call<List<vsebina>>, t: Throwable) {
+                    throw t
+                }
+
+                override fun onResponse(call: Call<List<vsebina>>, response: Response<List<vsebina>>) {
+                    seznamUrnik.clear()
+                    seznamUrnik.addAll(response.body()!!)
+                    scheduleAdapter.notifyDataSetChanged()
+                }
+
+            })
         })
         change.setOnClickListener {
             showAlertDialog()
@@ -148,9 +162,12 @@ class MyAdapter :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
     private var datum : Date = Date()
     private val calendar = Calendar.getInstance()
+    private val currentDay = calendar.get(Calendar.DAY_OF_WEEK)
     private lateinit var listener : View.OnClickListener
     init{
+        calendar.set(Calendar.DAY_OF_WEEK,calendar.firstDayOfWeek)
         datum = calendar.time
+
     }
 
     inner class MyViewHolder(val textView: View) : RecyclerView.ViewHolder(textView),View.OnClickListener{
@@ -179,14 +196,17 @@ class MyAdapter :
 
             val day = SimpleDateFormat("E",Locale.forLanguageTag("sl-SI"))
             holder.textView.day.text = day.format(datum).toUpperCase()
-            holder.textView.tag = calendar.get(Calendar.DAY_OF_WEEK)
+            holder.textView.tag = position+1
             val simpleDate = SimpleDateFormat("dd",Locale.getDefault())
             val dayInt = simpleDate.format(datum)
             holder.textView.date.text = dayInt
             //danes
             datum.time += 1000*60*60*24
+            if(position == currentDay-1){
+                chosenDay = holder.textView
+            }
             holder.textView.alpha =
-                if(position == 0) 1.0f
+                if(position == currentDay-2) 1.0f
                 else 0.5f
         }
     }
