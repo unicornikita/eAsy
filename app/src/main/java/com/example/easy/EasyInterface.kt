@@ -4,13 +4,14 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface EasyInterface {
-    @POST("setClass")
-    fun setClass(@Body razred: String?): Call<String?>?
-    @GET("allClasses")
+    @GET("/allClasses")
     fun allClasses(): Call<List<String>>
-    @GET("danes")
-    fun danes(): Call<List<vsebina>>
+    @GET("/danes/{razred}")
+    fun danes(@Path("razred") string: String): Call<List<vsebina>>
+    @GET("/izbranDan/{razred}/{dan}")
+    fun izbranDan(@Path("razred") razred: String, @Path("dan") dan: Int): Call<List<vsebina>>
 }

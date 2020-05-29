@@ -1,3 +1,3 @@
 package com.example.easy
 
-data class vsebina(val predmet: String , val profesor: String)
+data class vsebina(val Predmet: String , val Profesor: String)
