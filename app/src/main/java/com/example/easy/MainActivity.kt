@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private val seznamUrnik : MutableList<vsebina> = mutableListOf()
     val ure = listOf("7.10", "8.00", "8.50", "9.40", "10.30", "11.20", "12.10", "13.00", "13.50")
     private val scheduleAdapter = ScheduleAdapter(seznamUrnik,ure)
+
     private fun showAlertDialog(){
         service.allClasses().enqueue(object: Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                         putString("izbranRazred", options[selectedItem])
                         apply()
                         razred.text = options[selectedItem]
+
                     }
                     Log.d("test", options[selectedItem])
                     service.danes(options[selectedItem]).enqueue(object: Callback<List<vsebina>>{
@@ -96,6 +98,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sharedPref = getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
+        razred.text = sharedPref.getString("izbranRazred", "")
 
         urnik.adapter = scheduleAdapter
         urnik.layoutManager = LinearLayoutManager(this@MainActivity)
