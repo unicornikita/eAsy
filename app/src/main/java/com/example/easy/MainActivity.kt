@@ -26,6 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
                     }
                     Log.d("test", options[selectedItem])
+
                     service.danes(options[selectedItem]).enqueue(object: Callback<List<vsebina>>{
                         override fun onFailure(call: Call<List<vsebina>>, t: Throwable) {
                             throw t
@@ -158,6 +160,7 @@ class MainActivity : AppCompatActivity() {
                     Log.w("TAG", "getInstanceId failed", task.exception)
                     return@OnCompleteListener
                 }
+                FirebaseMessaging.getInstance().unsubscribeFromTopic("notification")
                 FirebaseMessaging.getInstance().subscribeToTopic("notification")
             })
     }
