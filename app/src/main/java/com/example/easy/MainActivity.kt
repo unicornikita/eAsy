@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 builder.setPositiveButton(R.string.okay) { dialogInterface: DialogInterface, _: Int ->
                     val preferences = getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("notification" + preferences.getString("izbranRazred",""))
+                    FirebaseMessaging.getInstance().subscribeToTopic("notification" + options[selectedItem])
                     with(preferences.edit()){
                         putString("izbranRazred", options[selectedItem])
                         apply()
@@ -160,8 +162,6 @@ class MainActivity : AppCompatActivity() {
                     Log.w("TAG", "getInstanceId failed", task.exception)
                     return@OnCompleteListener
                 }
-                FirebaseMessaging.getInstance().unsubscribeFromTopic("notification")
-                FirebaseMessaging.getInstance().subscribeToTopic("notification")
             })
     }
 }
