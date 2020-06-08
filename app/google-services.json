@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "54501739919",
+    "firebase_url": "https://easy-matura.firebaseio.com",
+    "project_id": "easy-matura",
+    "storage_bucket": "easy-matura.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54501739919:android:e3871d3b2d124dece88ffa",
+        "android_client_info": {
+          "package_name": "com.example.easy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54501739919-fl8cn99oi89vttvqr9otctb8rbc5vurj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMuHekZyu2FtRb_4HFssy512qly0tWGPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54501739919-fl8cn99oi89vttvqr9otctb8rbc5vurj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
